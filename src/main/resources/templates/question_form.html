@@ -1,0 +1,38 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="max-w-3xl mx-auto px-4 py-10">
+
+    <!-- 제목 -->
+    <h1 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">
+        질문 등록
+    </h1>
+
+    <form th:action="@{/question/create}" th:object="${questionForm}" method="post" class="space-y-6">
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <!-- 제목 입력 -->
+        <div>
+            <label th:for="*{subject}" class="block mb-1 text-sm font-medium text-slate-700">
+                제목
+            </label>
+            <input type="text" th:field="*{subject}"
+                   class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm
+                          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <!-- 내용 입력 -->
+        <div>
+            <label th:for="*{subject}" class="block mb-1 text-sm font-medium text-slate-700">
+                내용
+            </label>
+            <textarea th:field="*{content}" rows="10"
+                      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm resize-y
+                             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+        </div>
+
+        <!-- 버튼 -->
+        <input type="submit" value="저장하기"
+               class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium
+                      hover:bg-blue-700 active:bg-blue-800 cursor-pointer transition-colors">
+    </form>
+
+</div>
+</html>

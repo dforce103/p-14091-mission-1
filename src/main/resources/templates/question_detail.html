@@ -1,0 +1,58 @@
+
+<html layout:decorate="~{layout}">
+<body class="bg-slate-100 min-h-screen">
+
+<main layout:fragment="content" class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+
+    <h1 class="mt-8 text-2xl font-bold text-slate-800 text-center mb-6">질문 상세</h1>
+
+    <!-- 질문 카드 -->
+    <section class="bg-white rounded-xl shadow-md p-6 space-y-4">
+        <h2 class="text-xl font-bold text-slate-900" th:text="${question.subject}"></h2>
+        <div class="h-px bg-slate-200"></div>
+        <div class="text-slate-800 whitespace-pre-line" th:text="${question.content}"></div>
+    </section>
+
+    <!-- 답변 개수 -->
+    <section class="bg-white rounded-xl shadow-md p-4">
+        <h5 class="text-sm font-medium text-slate-700"
+            th:text="|${#lists.size(question.answers)}개의 답변이 있습니다.|"></h5>
+    </section>
+
+    <!-- 답변 리스트 -->
+    <section class="bg-white rounded-xl shadow-md p-4">
+        <ul class="space-y-3">
+            <li th:each="answer : ${question.answers}"
+                class="border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 bg-slate-50">
+                <span th:text="${answer.content}"></span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 답변 작성 폼 -->
+    <section class="bg-white rounded-xl shadow-md p-6 space-y-4">
+        <h3 class="text-lg font-semibold text-slate-900">답변 작성</h3>
+        <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="space-y-4">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+
+            <div>
+                <label th:for="*{content}" class="block mb-1 text-sm font-medium text-slate-700">
+                    내용
+                </label>
+                <textarea th:for="*{content}" name="content" rows="8"
+                          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-800
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                                 resize-y"></textarea>
+            </div>
+            <div class="flex justify-end">
+                <input type="submit" value="답변 등록"
+                       class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium
+                              hover:bg-blue-700 active:bg-blue-800 cursor-pointer
+                              transition-colors">
+            </div>
+        </form>
+    </section>
+
+</main>
+</body>
+</html>

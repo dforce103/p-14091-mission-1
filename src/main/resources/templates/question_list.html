@@ -1,0 +1,36 @@
+
+<html layout:decorate="~{layout}">
+
+<div layout:fragment="content">
+
+    <h1 class="mt-8 text-2xl font-bold text-slate-800 text-center mb-6">질문 목록</h1>
+
+    <table class="w-full">
+        <thead class="bg-black text-white">
+            <tr >
+                <th class="px-4 py-3 text-left text-sm font-semibold">번호</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold">제목</th>
+                <th class="px-4 py-3 text-left text-sm font-semibold">작성일시</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-400">
+            <tr th:each="question : ${questionList}">
+                <td th:text="${question.id}" class="px-4 py-3 text-sm"></td>
+                <td class="px-4 py-3 text-sm">
+                    <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"
+                       class="text-slate-500 hover:text-blue-800 hover:underline underline-offset-2"></a>
+                </td>
+                <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}" class="px-4 py-3 text-sm text-slate-500"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="flex justify-start">
+        <a th:href="@{/question/create}"
+               class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium
+                              hover:bg-blue-700 active:bg-blue-800 cursor-pointer
+                              transition-colors">질문 등록하기</a>
+    </div>
+
+</div>
+
+</html>
